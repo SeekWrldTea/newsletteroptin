@@ -36,7 +36,7 @@ class HomeController < ApplicationController
 private
 
   def newsletter_subscription_params
-    params.require(:newsletter).permit(:email)
+    params.require(:newsletter).permit(:email, :authenticity_token)
   end
 
 end
