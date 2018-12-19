@@ -195,6 +195,8 @@ ActiveRecord::Schema.define(version: 20181017094623) do
     t.datetime "updated_at",                      null: false
     t.boolean  "email_confirmed", default: false
     t.string   "confirm_token"
+    t.datetime "confirm"
+    t.datetime "cancel"
     t.index ["domain_id"], name: "index_newsletters_on_domain_id"
   end
 

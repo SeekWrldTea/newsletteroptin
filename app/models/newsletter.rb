@@ -9,6 +9,8 @@
 #  updated_at      :datetime         not null
 #  email_confirmed :boolean          default("f")
 #  confirm_token   :string
+#  confirm         :datetime
+#  cancel          :datetime
 #
 # Indexes
 #
