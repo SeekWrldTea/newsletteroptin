@@ -1,3 +1,16 @@
-Bonjour,
-Merci de vous être inscrit a la newsletter, cliquez sur le lien ci dessous afin de confirmer votre inscription a la newsletter:
-<%= link_to "confirm", confirm_email_url(@newsletter.confirm_token) %>
+Bonjour,<br/>
+
+ 
+
+<p> Nous vous remercions pour votre demande d’inscription à notre newsletter. Pour la valider, merci de cliquer sur le lien ci-dessous : </p>
+
+ 
+<br/><%= link_to "Valider mon inscription", confirm_email_url(@newsletter.confirm_token) %>
+
+
+
+ 
+
+<br/>Cordialement,
+
+
