@@ -1,0 +1,14 @@
+<div class="panel panel-default">
+  <div class="panel-heading" role="tab" id="heading<%= i %>">
+    <div class="panel-title">
+      <a class="<%= i > 0 ? 'collapsed' : '' %>" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<%= i %>" aria-expanded="true" aria-controls="collapse<%= i %>">
+        <%= guide.title %>
+      </a>
+    </div>
+  </div>
+  <div id="collapse<%= i %>" class="panel-collapse collapse <%= i == 0 ? 'in' : '' %>" role="tabpanel" aria-labelledby="heading<%= i %>">
+    <div class="panel-body">
+      <%= raw guide.body %>
+    </div>
+  </div>
+</div>

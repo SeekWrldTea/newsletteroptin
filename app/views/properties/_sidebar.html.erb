@@ -1,0 +1,31 @@
+<div class="margin-t-20">
+    <h2>Contactez l'agence</h2>
+    <a href="<%= contact_path %>" class="widget">
+      <span><%= agency.title %></span><br />
+      <span><%= agency.address %></span>
+      <i class="fa fa-envelope"></i>
+      <p>Contactez-nous</p>
+    </a>
+</div>
+<div class="margin-t-20">
+  <% if widget_guide.present? %>
+      <h2><%= widget_guide.title %></h2>
+      <a href="<%= widget_guide.url %>" class="widget odd">
+        <span><%= widget_guide.subtitle %></span>
+        <i class="fa <%= widget_guide.icon %>"></i>
+        <p><%= widget_guide.url_text %></p>
+      </a>
+  <% end %>
+</div>
+<div class="margin-t-20">
+  <% if articles.length > 0 %>
+      <h2><%= categories_actualites.title %></h2>
+      <div class="widget">
+        <ul>
+          <% articles.each do |a| %>
+              <li><%= link_to a.title, articles_path(categorie: categories_actualites.slug) %></li>
+          <% end %>
+        </ul>
+      </div>
+  <% end %>
+</div>

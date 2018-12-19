@@ -1,0 +1,25 @@
+<% title @page.seo.present? ? @page.seo.title : @page.title %>
+<% meta_description @page.seo.present? ? @page.seo.description : '' %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-9 col-sm-8">
+      <div class="margin-t-20 fr-view">
+        <%= raw @page.body %>
+      </div>
+      <% if @page.guides.length > 0 %>
+        <div class="panel-group margin-t-40" id="accordion" role="tablist" aria-multiselectable="true">
+          <% @page.guides.each_with_index do |guide, index| %>
+              <%= render 'shared/guide', { guide: guide, i: index } %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-md-3 col-sm-4 sidebar">
+      <% if @page.widgets.length > 0 %>
+        <% @page.widgets.each do |widget| %>
+          <%= render 'shared/widget', { widget: widget, css: cycle('odd', 'even') } %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

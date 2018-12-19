@@ -1,0 +1,230 @@
+<% title @property.title %>
+<% meta_description @property.excerpt %>
+<% og_title @property.title %>
+<% og_description @property.excerpt %>
+<% if @property.main_image.present? %>
+  <% og_image @property.main_image.image.image_thumb %>
+<% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-9 col-sm-8">
+      <div class="margin-t-40">
+        <div class="row">
+          <div class="col-sm-8">
+            <div class="carouselProperty <% if @property.images.length > 1 %>active<% end %>">
+              <% if @property.main_image.nil? %>
+                <div class="carousel-img-container">
+                  <%= image_tag asset_path('logo-og_'+current_domain+'.jpg'), class: 'scale img-responsive', data: { original: asset_path('logo-og_'+current_domain+'.jpg') } %>
+                </div>
+              <% else %>
+                <% @property.images.each do |i| %>
+                  <div class="carousel-img-container">
+                    <%= link_to (image_tag(i.image.image_thumb, class: 'img-responsive')), i.image.url, class: 'zoombox zgallery1', title: @property.title %>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="type_offer"><%= @property.type_offer %></div>
+            <address><%= @property.postal_code %> <%= @property.city %></address>
+            <div class="price"><%= ActionController::Base.helpers.number_with_precision(@property.price, locale: :fr, precision: 0, delimiter: ' ')%>€</div>
+            <ul class="feature-list">
+              <li>Type de bien : <%= @property.type_property %></li>
+              <% if @property.cons_energy.present? && @property.class_energy.present? %>
+                <li>CE :  <%= @property.class_energy %> (<%= @property.cons_energy %> kWh/m2/an)</li>
+              <% end %>
+              <% if @property.emission_gaz.present? && @property.class_emission_gaz.present? %>
+                <li>GES :  <%= @property.class_emission_gaz %> (<%= @property.emission_gaz %> kWh/m2/an)</li>
+              <% end %>
+              <% if @property.property_tax.present? %>
+                <li>Taxes foncières : <%= ActionController::Base.helpers.number_with_precision(@property.property_tax, locale: :fr, precision: 2)%>€</li>
+              <% end %>
+              <% if @property.charges.present? %>
+                <li>Charges : <%= ActionController::Base.helpers.number_with_precision(@property.charges, locale: :fr, precision: 2)%>€</li>
+              <% end %>
+              <% if @property.living_space.present? %>
+                <li>Surface habitable :  <%= @property.living_space %> m²</li>
+              <% end %>
+              <% if @property.land_area.present? %>
+                <li>Surface du terrain :  <%= @property.land_area %> m²</li>
+              <% end %>
+              <% if @property.nb_rooms.present? %>
+                <li>Nombre de pièces :  <%= @property.nb_rooms %></li>
+              <% end %>
+              <% if @property.bedroom.present? %>
+                <li>Nombre de chambres :  <%= @property.bedroom %></li>
+              <% end %>
+              <% if @property.floor.present? %>
+                <li>N° de l'étage : <%= @property.floor %></li>
+              <% end %>
+              <% if @property.nb_floors.present? %>
+                <li>Nombre d'étages : <%= @property.nb_floors %></li>
+              <% end %>
+              <% if @property.heating_energy && @property.heating_format %>
+                  <li>Chauffage : <%= @property.heating.present? ? @property.heating+' ' : '' %><%= @property.heating_energy %> <%= @property.heating_format %></li>
+              <% end %>
+              <% if @property.nb_rooms.present? %>
+                  <li>Nombre de pièces : <%= @property.nb_rooms %></li>
+              <% end %>
+              <% if @property.kitchen.present? %>
+                <li>Type de cuisine :  <%= @property.kitchen %></li>
+              <% end %>
+              <% if @property.bathroom.present? %>
+                <li>Nombre de salles de bain : <%= @property.bathroom %></li>
+              <% end %>
+              <% if @property.shower_room.present? %>
+                <li>Nombre de salle d'eau : <%= @property.shower_room %></li>
+              <% end %>
+              <% if @property.restroom.present? %>
+                <li>Nombre de wc : <%= @property.restroom %></li>
+              <% end %>
+              <% if @property.parking == 1 %>
+                <li>Parking :  Oui</li>
+              <% end %>
+              <% if @property.balcony.present? %>
+                <li>Balcon :  Oui</li>
+              <% end %>
+              <% if @property.terrace.present? %>
+                <li>Terrasse :  Oui</li>
+              <% end %>
+              <% if @property.swimming_pool == 1 %>
+                  <li>Piscine :  Oui</li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+        <div class="row col-sm-20">
+          <div class="col-sm-8">
+            <ul class="nav nav-tabs">
+              <li role="presentation" class="active">
+                <a href="#information" aria-controls="information" role="tab" data-toggle="tab">Information</a>
+              </li>
+              <li role="presentation">
+                <a href="#energy" aria-controls="energy" role="tab" data-toggle="tab">Classe énergétique</a>
+              </li>
+              <li role="presentation" class="red">
+                <a href="#contact" aria-controls="contact" role="tab" data-toggle="tab">Ce bien m'intéresse</a>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div role="tabpanel" class="tab-pane active" id="information">
+                <%= strip_tags @property.body %>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="energy">
+                <% if @property.class_energy.present? && @property.class_emission_gaz.present? %>
+                <div class="row">
+                  <div class="col-sm-6">
+                    CE :<br />
+                    <%= image_tag 'consommation-'+@property.class_energy+'.png', width: '240' %><br />
+                    <small>en kWhan/m²/a</small>
+                  </div>
+                  <div class="col-sm-6">
+                    GES* :<br />
+                    <%= image_tag 'emission-'+@property.class_emission_gaz+'.png', width: '240' %><br />
+                    <small>* Gaz à effet de serre en KgeqCO2/m²/an</small>
+                  </div>
+                </div>
+                <% else %>
+                  Non Renseigné
+                <% end %>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="contact">
+                <%= simple_form_for @contact, url: property_path(properties: (@property.type_offer == 'Vente' ? 'biens-a-vendre' : 'biens-a-louer'), id:  @property.slug, form:1), defaults: {wrapper: :inline_field12}, html: { class: 'form-horizontal' } do |f| %>
+                  <div class="row">
+                    <%= f.error_notification %>
+                    <div class="col-sm-6">
+                      <%= render 'contacts/main', f: f %>
+                    </div>
+                    <div class="col-sm-12">
+                      <label>Message complémentaire *:</label>
+                      <div class="form-group">
+                        <%= f.input :message, input_html: { rows: 8 }, as: :text, error: 'Le message est obligatoire' %>
+                      </div>
+                      <%= f.input :code_form, :as => :hidden, input_html: { value: 'GENERAL' } %>
+                    </div>
+                    <div class="col-sm-4">
+                      <small>*Champs obligatoires</small>
+                      <div class="recaptcha_block">
+                        <%= recaptcha_tags %>
+                        <span class="help-block pull-left" style="color: #a94442;"><%= @captcha_error %></span>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-12">
+                          <%= f.button :submit, 'Envoyer', class: 'btn-block btn-red' %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div id="map" class="gmap"></div>
+            <script>tarteaucitron.user.mapscallback = 'initMap';</script>
+          </div>
+        </div>
+        <hr class="border" />
+        <div class="row">
+          <% @last_properties.each do |p| %>
+            <div class="col-sm-4">
+              <%= render 'properties/property', property: p %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-4 sidebar">
+      <%= render 'sidebar', { widget_guide: @widget_guide, agency: @agency, categories_actualites: @categories_actualites, articles: @articles } %>
+    </div>
+  </div>
+</div>
+<script>
+    function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 10,
+            center: {lat: 48.855386, lng: 2.346176},
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            scrollwheel: false
+        });
+        var geocoder = new google.maps.Geocoder;
+        var infowindow = new google.maps.InfoWindow;
+        var locationContent = (
+            '<div class="content">'+
+            '<span class="firstHeading"><%= @property.title %></span>'+
+            '<div id="bodyContent">'+
+            '<p><%= @property.postal_code %> <%= @property.city %></p>'+
+            '</div>'+
+            '</div>'
+        );
+
+        var marker;
+        var image = '<%= asset_path('pin.png') %>'
+        getAddress('<%= @property.postal_code %> <%= @property.city %> France', locationContent);
+
+        function getAddress(address, locationContent) {
+            geocoder.geocode( { 'address': address}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    map.setCenter(results[0].geometry.location);
+                    marker = new google.maps.Marker({
+                        icon: image,
+                        map: map,
+                        position: results[0].geometry.location
+                    });
+
+                    google.maps.event.addListener(marker, 'click', (function(marker) {
+                        return function() {
+                            infowindow.setContent(locationContent);
+                            infowindow.open(map, marker);
+                        }
+                    })(marker));
+                }
+                else {
+                    console.log("addresse en erreur : "+address+" Erreur :" + status);
+                }
+            });
+        }
+    }
+//    initMap();
+</script>

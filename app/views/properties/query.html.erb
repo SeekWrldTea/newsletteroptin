@@ -1,0 +1,22 @@
+<div class="row">
+  <% if @properties.length > 0 %>
+    <% @properties.each do |p| %>
+      <div class="col-md-3 col-sm-6">
+        <%= render 'properties/property', property: p %>
+      </div>
+  <% end %>
+  <% else %>
+    <div class="col-sm-12">
+      <div class="alert alert-info">
+        <i class="fa fa-info-circle"></i> Désolé, nous n'avons pas trouvé de logement avec ces critères.<br />
+      </div>
+    </div>
+  <% end %>
+</div>
+<div class="row margin-t-20">
+  <div class="col-sm-6 col-sm-offset-3">
+    <div class="text-center">
+      <%= paginate @properties %>
+    </div>
+  </div>
+</div>

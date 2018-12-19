@@ -1,0 +1,12 @@
+<label>Nom et prénom *:</label>
+<div class="form-group">
+  <%= f.input :name, input_html: { maxlength: 50 }, error: 'Le champ nom/prénom est obligatoire' %>
+</div>
+<label>Email *:</label>
+<div class="form-group">
+  <%= f.input :email, input_html: { maxlength: 50 }, error: 'L\'email est obligatoire' %>
+</div>
+<label>Téléphone *:</label>
+<div class="form-group">
+  <%= f.input :phone, input_html: { maxlength: 15 }, error: 'Le téléphone est obligatoire' %>
+</div>

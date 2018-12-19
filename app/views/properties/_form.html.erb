@@ -1,0 +1,19 @@
+<%= simple_form_for :filter, url: properties_query_path(), defaults: {wrapper: :inline_field12}, html: { id: 'main-search', class: 'form-horizontal' } do |f| %>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <%= f.input :type_properties, selected: params[:filter][:type_properties], collection: @type_properties, required: false, include_blank: 'Type', label: false %>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <%= f.input :cities, selected: params[:filter][:cities], collection: @cities, required: false, include_blank: 'Localisation', label: false %>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <%= f.input :areas, selected: params[:filter][:areas], collection: @areas.sort.map {|k,v| [v,k]}, required: false, include_blank: 'Superficie m²', label: false %>
+        </div>
+      </div>
+    </div>
+<% end %>

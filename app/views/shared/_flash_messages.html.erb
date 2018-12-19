@@ -1,0 +1,12 @@
+<% flash.each do |key, value| %>
+    <script type="text/javascript">
+        jQuery(function($) {
+            $('body>header').notification({
+                fixe:     "<%= key == 'info_fixe' ? 'true' : 'false' %>",
+                type: 	  "<%= key %>",
+                contenu: 	"<%= value %>",
+                delai: 	  7000
+            });
+        });
+    </script>
+<% end %>

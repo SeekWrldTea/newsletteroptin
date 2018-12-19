@@ -1,0 +1,171 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require font-awesome
+ *= require_self
+ */
+
+.devise {
+  font-family: 'Raleway', sans-serif;
+  height: 100vh;
+  margin-top: -80px;
+  .container-fluid-admin {
+    height: 100vh;
+  }
+
+  .container-fluid-devise {
+    height: 100vh;
+    overflow: auto;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:active,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:hover {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #fff !important;
+  }
+}
+
+.bckg-dark {
+  background: url('https://source.unsplash.com/1920x1080/?landscape') center fixed;
+  background-size: cover;
+}
+
+.centered {
+  left: 50%;
+  position: fixed;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.login-form {
+  background: #1c2c41;
+  color: #fff;
+  width: 30%;
+
+  .links-form {
+    a {
+      color: #47566c;
+      text-decoration: none;
+      &:hover {
+        color: #47566c;
+      }
+    }
+  }
+
+  i {
+    font-size: 1.5em;
+  }
+
+  .form-control {
+    box-shadow: none;
+  }
+
+  .input-group {
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    margin-top: 15px;
+    margin-bottom: 50px;
+  }
+
+  .content {
+    padding: 35px;
+  }
+
+  .content-login {
+    padding: inherit;
+  }
+
+  .input-group-addon {
+    border-radius: 0;
+    padding-bottom: 15px;
+  }
+
+  input[type="submit"] {
+    cursor: pointer;
+    background: #304158;
+    color: #fff;
+    border-radius: 3px;
+    border: 0;
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 45px;
+    margin-top: 55px;
+    &:hover {
+      background: darken(#304158, 5%);
+    }
+  }
+
+  input[type="text"], input[type="email"], input[type="password"] {
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid #47566c;
+    color: #fff;
+    margin-top: 15px;
+    padding-bottom: 15px;
+    width: 100%;
+  }
+
+  .input-group-addon {
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid #47566c;
+    color: #fff;
+    margin-top: 15px;
+    padding-bottom: 15px;
+    padding-top: 12px;
+  }
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .login-form-user {
+    width: 45%;
+  }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .login-form-user {
+    width: 45%;
+  }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .login-form-user {
+    width: 26%;
+    input[type="submit"] {
+      width: 100%;
+    }
+  }
+  .app-logo {
+    margin: 50px 0 25px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .login-form-user {
+    width: 15%;
+    input[type="submit"] {
+      width: 100%;
+    }
+  }
+  .app-logo {
+    margin: 50px 0 25px;
+  }
+}

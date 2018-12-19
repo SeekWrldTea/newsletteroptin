@@ -1,0 +1,84 @@
+<% title @h1 %>
+<% og_title @h1 %>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 margin-t-40">
+      <p><strong>En tant que syndic de copropriété,</strong> nous prenons en charge l’administration, l’entretien, l’amélioration et la mise en conformité réglementaire de votre immeuble.</p>
+      <p><strong>Communication et réactivité</strong> sont au cœur de notre détermination.</p>
+      <p><strong>Nos équipes ont une parfaite connaissance du terrain et veillent :</strong> à l’entretien des parties communes, au contrôle des travaux, au respect du règlement de copropriété, à l’application des décisions d’Assemblée Générale, à la gestion du personnel de la copropriété, au suivi des contrats d’entretien, à la gestion des sinistres, au recouvrement des charges, au suivi des procédures affectant les parties communes...</p>
+      <p><strong>Notre contrat </strong><span>forfaitise la plupart des prestations particulières et les englobe dans les honoraires de gestion courante. Plus lisible, il prend en compte les évolutions réglementaires et les attentes des consommateurs. Il répond à toutes les exigences légales.</span></p>
+      <p><span><strong>Contactez-nous</strong> dès maintenant pour une étude personnalisée de votre projet.</span></p>
+    </div>
+    <hr class="border" />
+    <div class="col-sm-12">
+      <%= simple_form_for @contact, url: confiez_nous_votre_immeuble_path, defaults: {wrapper: :inline_field12}, html: { class: 'form-horizontal' } do |f| %>
+        <div class="row">
+          <%= f.error_notification %>
+          <div class="col-sm-6">
+            <h2>Caractéristiques de votre copropriété</h2>
+            <label>Nombre de lots principaux *:</label>
+            <div class="form-group">
+              <%= f.input :main_lots, input_html: { maxlength: 50 }, error: 'Le nbr de lots principaux est obligatoire' %>
+            </div>
+            <label>Nombre de lots secondaires (cave, parking) *:</label>
+            <div class="form-group">
+              <%= f.input :second_lots, input_html: { maxlength: 50 }, error: 'Le nbr de lots principaux est obligatoire' %>
+            </div>
+            <label>Type d'énergie *:</label>
+            <div class="form-group">
+              <%= f.input :energy, collection: %w[oui non], prompt: 'Sélectionner une option' %>
+            </div>
+            <label>Ascenseur *:</label>
+            <div class="form-group">
+              <%= f.input :elevator, collection: %w[oui non], prompt: 'Sélectionner une option' %>
+            </div>
+            <label>Du personnel travaille-t-il au sein de la copropriété ? *:</label>
+            <div class="form-group">
+              <%= f.input :people, collection: %w[oui non], prompt: 'Sélectionner une option' %>
+            </div>
+            <label>Etes-vous membre du conseil syndical ? *:</label>
+            <div class="form-group">
+              <%= f.input :syndical, collection: %w[oui non], prompt: 'Sélectionner une option' %>
+            </div>
+            <label>Date estimée de la prochaine AG *:</label>
+            <div class="form-group">
+              <%= f.input :assembly_date, input_html: { maxlength: 15 }, error: 'La date de la prochaine AG est obligatoire' %>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <h2>Localisation de votre copropriété</h2>
+            <label>Code postal *:</label>
+            <div class="form-group">
+              <%= f.input :postal_code, input_html: { maxlength: 10 }, error: 'Le code postal est obligatoire' %>
+            </div>
+            <label>Ville *:</label>
+            <div class="form-group">
+              <%= f.input :city, input_html: { maxlength: 50 }, error: 'La ville est obligatoire' %>
+            </div>
+            <h2 style="margin-top:57px;">Vos coordonnées</h2>
+            <%= render 'contacts/main', f: f %>
+          </div>
+          <div class="col-sm-12">
+            <label>Message complémentaire *:</label>
+            <div class="form-group">
+              <%= f.input :message, input_html: { rows: 8 }, as: :text, error: 'Le message est obligatoire' %>
+            </div>
+            <%= f.input :code_form, :as => :hidden, input_html: { value: 'CONFIEZ-IMMEUBLE' } %>
+          </div>
+          <div class="col-sm-4">
+            <small>*Champs obligatoires</small>
+            <div class="recaptcha_block">
+              <%= recaptcha_tags %>
+              <span class="help-block pull-left" style="color: #a94442;"><%= @captcha_error %></span>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <%= f.button :submit, 'Envoyer', class: 'btn-block btn-red' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

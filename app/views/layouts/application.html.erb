@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= yield(:title).present? ? yield(:title) : @seo_title.value %></title>
+    <meta name="description" content="<%= yield(:meta_description).present? ? yield(:meta_description) : @seo_description.value %>">
+    <%= favicon_link_tag 'favicon.png', type: 'image/png' %>
+    <meta property="og:url"           content="<%= request.original_url %>" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="<%= yield(:og_title).present? ? yield(:og_title) : @seo_title.value %>" />
+    <meta property="og:description"   content="<%= yield(:og_description).present? ? yield(:og_description) : @seo_description.value %>" />
+    <meta property="og:image"         content="<%= yield(:og_image).present? ? yield(:og_image) : asset_url('logo-og_'+current_domain+'.jpg') %>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto" rel="stylesheet">
+    <meta name="turbolinks-cache-control" content="no-cache">
+    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLn8pgIREdmRERGKumgwURhH9F6t3penY"></script>!-->
+    <script type="text/javascript" src="/tarteaucitron/tarteaucitron.js"></script>
+
+    <script type="text/javascript">
+        tarteaucitron.init({
+	    "privacyUrl": "<%= current_domain == 'SEGINE' ? '/cookie-1' : '/cookie' %>", /* Privacy policy url */
+
+	    "hashtag": "#tarteaucitron", /* Open the panel with this hashtag */
+	    "cookieName": "tartaucitron", /* Cookie name */
+
+	    "orientation": "top", /* Banner position (top - bottom) */
+	    "showAlertSmall": true, /* Show the small banner on bottom right */
+	    "cookieslist": true, /* Show the cookie list */
+
+	    "adblocker": false, /* Show a Warning if an adblocker is detected */
+	    "AcceptAllCta" : true, /* Show the accept all button when highPrivacy on */
+	    "highPrivacy": false, /* Disable auto consent */
+	    "handleBrowserDNTRequest": false, /* If Do Not Track == 1, accept all */
+    
+	    "removeCredit": false, /* Remove credit link */
+	    "moreInfoLink": true, /* Show more info link */
+
+	    //"cookieDomain": ".my-multisite-domaine.fr" /* Shared cookie for subdomain */
+        });
+    </script>
+
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <%= javascript_include_tag 'ie' %>
+    <![endif]-->
+    <meta name="google-site-verification" content="jygH8dcpd_iRa5yAkF1wjKbvqwLkHUlh6WOfPqxbtY8" />
+  </head>
+
+  <body>
+    <%= render 'shared/flash_messages', flash: flash %>
+    <%= render 'layouts/header' %>
+    <% unless current_page?(root_path) %>
+      <div class="subheader">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-6">
+              <h1><%= @h1 %></h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb">
+                <%= render_breadcrumbs :tag => :li, :separator => '' %>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+  <% end %>
+    <%= yield %>
+    <%= render 'layouts/footer' %>
+    <div class="loader">
+      <div class="sk-folding-cube">
+        <div class="sk-cube1 sk-cube"></div>
+        <div class="sk-cube2 sk-cube"></div>
+        <div class="sk-cube4 sk-cube"></div>
+        <div class="sk-cube3 sk-cube"></div>
+      </div>
+    </div>
+    <script type="text/javascript">
+        tarteaucitron.user.analyticsUa = 'UA-98468123-1';
+        tarteaucitron.user.analyticsMore = function () { /* add here your optionnal ga.push() */ };
+        (tarteaucitron.job = tarteaucitron.job || []).push('analytics');
+
+        tarteaucitron.user.googlemapsKey = 'AIzaSyDUtfkhMijRXvnkCApJ3noYLK0ynbyvXMQ';
+        (tarteaucitron.job = tarteaucitron.job || []).push('googlemaps');
+    </script>
+  </body>
+</html>

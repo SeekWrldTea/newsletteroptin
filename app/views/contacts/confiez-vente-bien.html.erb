@@ -1,0 +1,77 @@
+<% title @h1 %>
+<% og_title @h1 %>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 margin-t-40">
+      <p><strong><%= current_domain == 'SEGINE' ? 'SEGINE' : 'IMMOBILIÈRE DES VICTOIRES' %> vous accompagne dans la vente de votre bien immobilier</strong> sur Paris et sa périphérie.</p>
+      <p><strong>Le Pack <%= current_domain == 'SEGINE' ? 'SEGINE' : 'IMMOBILIÈRE DES VICTOIRES' %> :</strong><br>Nous vous offrons les diagnostics obligatoires à la vente de votre bien ainsi que<br>
+        les honoraires liés à l'établissement de l'état daté de votre bien (dans les copropriétés que nous gérons).<br>
+        Nous vous offrons également l'estimation réalisée sur votre bien.</p>
+      <p>Sous réserve de la signature d'un mandat exclusif d'une durée de 3 mois.</p>
+      <p><strong>Contactez-nous</strong> dès maintenant pour une étude personnalisée de votre projet.</p>
+    </div>
+    <hr class="border" />
+    <div class="col-sm-12">
+      <%= simple_form_for @contact, url: confiez_nous_la_vente_de_votre_bien_path, defaults: {wrapper: :inline_field12}, html: { class: 'form-horizontal' } do |f| %>
+          <div class="row">
+            <%= f.error_notification %>
+            <div class="col-sm-6">
+              <h2>Caractéristiques du bien à vendre</h2>
+              <label>Type de bien *:</label>
+              <div class="form-group">
+                <%= f.input :sort, input_html: { maxlength: 50 }, error: 'Le nbr de lots principaux est obligatoire' %>
+              </div>
+              <label>Etat du bien *:</label>
+              <div class="form-group">
+                <%= f.input :state, collection: ['Bon état', 'Etat moyen', 'A rénover'], prompt: 'Sélectionner une option' %>
+              </div>
+              <label>Lot annexe :</label>
+              <div class="checkbox">
+                <%= f.collection_check_boxes :other_lots, [%w(Cave Cave), %w(Parking Parking), %w(Box Box)], :first, :last %>
+              </div>
+              <label>Surface (m²) *:</label>
+              <div class="form-group">
+                <%= f.input :area, input_html: { maxlength: 50 }, error: 'La surface est obligatoire' %>
+              </div>
+              <label>Nombre de pièces *:</label>
+              <div class="form-group">
+                <%= f.input :rooms, input_html: { maxlength: 50 }, error: 'Le nombre de pièces est obligatoire' %>
+              </div>
+              <h2>Localisation de votre bien</h2>
+              <label>Code postal *:</label>
+              <div class="form-group">
+                <%= f.input :postal_code, input_html: { maxlength: 10 }, error: 'Le code postal est obligatoire' %>
+              </div>
+              <label>Ville *:</label>
+              <div class="form-group">
+                <%= f.input :city, input_html: { maxlength: 50 }, error: 'La ville est obligatoire' %>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <h2>Vos coordonnées</h2>
+              <%= render 'contacts/main', f: f %>
+            </div>
+            <div class="col-sm-12">
+              <label>Message complémentaire *:</label>
+              <div class="form-group">
+                <%= f.input :message, input_html: { rows: 8 }, as: :text, error: 'Le message est obligatoire' %>
+              </div>
+              <%= f.input :code_form, :as => :hidden, input_html: { value: 'CONFIEZ-VENTE-BIEN' } %>
+            </div>
+            <div class="col-sm-4">
+              <small>*Champs obligatoires</small>
+              <div class="recaptcha_block">
+                <%= recaptcha_tags %>
+                <span class="help-block pull-left" style="color: #a94442;"><%= @captcha_error %></span>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-12">
+                  <%= f.button :submit, 'Envoyer', class: 'btn-block btn-red' %>
+                </div>
+              </div>
+            </div>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</div>

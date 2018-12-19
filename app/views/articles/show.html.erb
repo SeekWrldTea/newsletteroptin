@@ -1,0 +1,23 @@
+<% title @article.title %>
+<% meta_description @article.excerpt %>
+<% og_title @article.title %>
+<% og_description @article.excerpt %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-9 col-sm-8">
+      <div class="margin-t-40">
+        <div class="date-text">Publié <%= l(@article.published_at, format: 'le %A %d %B %Y') %></div>
+      </div>
+      <div class="margin-t-20">
+        <div class="addthis_native_toolbox"></div>
+      </div>
+      <div class="margin-t-20 fr-view">
+        <%= raw @article.body %>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-4 sidebar">
+      <%= render 'sidebar' %>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-54525afa280008ca"></script>

@@ -1,0 +1,10 @@
+fr:
+  admin:
+    actions:
+      menu_builder:
+        title: "Menu Builder"
+        menu: "Construire '%{object_label}'"
+        breadcrumb: "Construction Menu"
+        link: "Menu Builder"
+        bulk_link: "Menu Builder"
+        done: "Menu terminé"

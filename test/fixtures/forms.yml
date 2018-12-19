@@ -1,0 +1,33 @@
+# == Schema Information
+#
+# Table name: forms
+#
+#  id         :integer          not null, primary key
+#  name       :string           not null
+#  email      :string           not null
+#  phone      :string           not null
+#  message    :text             not null
+#  domain_id  :integer          not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+# Indexes
+#
+#  index_forms_on_domain_id  (domain_id)
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  email: MyString
+  phone: MyString
+  message: MyText
+  domain: one
+
+two:
+  name: MyString
+  email: MyString
+  phone: MyString
+  message: MyText
+  domain: two

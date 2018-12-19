@@ -1,0 +1,10 @@
+en:
+  admin:
+    actions:
+      menu_builder:
+        title: "Sortable Menu"
+        menu: "Sortable Menu for %{model_label} '%{object_label}'"
+        breadcrumb: "Sortable Menu"
+        link: "Sortable Menu"
+        bulk_link: "Sortable Menu selected %{model_label_plural}"
+        done: "Sortable Menued"

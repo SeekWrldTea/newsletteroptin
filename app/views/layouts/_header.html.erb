@@ -1,0 +1,50 @@
+<header>
+  <nav class="navbar navbar-main navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar-collapse" aria-expanded="false">
+          <span class="sr-only">Menu</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <%= link_to image_tag('logo-'+current_domain+'.png', alt:'logo '+current_domain), root_path, class:'navbar-brand' %>
+      </div>
+      <div class="collapse navbar-collapse" id="main-navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <% @menu_associations.each do |m_a| %>
+              <% if m_a.has_children? %>
+                  <li class="dropdown">
+                    <% if m_a.node_type == 'PAGE' %>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                          <%= m_a.page.title %>
+                        </a>
+                    <% elsif m_a.node_type == 'LINK' %>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                          <%= m_a.link.image.present? ? image_tag(m_a.link.image.link_thumb, alt: m_a.link.title) : '' %>
+                          <span><%= m_a.link.title %></span>
+                        </a>
+                    <% end %>
+                    <ul class="dropdown-menu">
+                      <% m_a.descendants.each do |m_a_d| %>
+                          <% if m_a_d.node_type == 'PAGE' %>
+                              <li><a href="<%= page_path(m_a_d.page.slug) %>" class="<% if m_a_d.page.friendly_id == params[:id] %>active<% end %>"><%= m_a_d.page.title %></a></li>
+                          <% elsif m_a_d.node_type == 'LINK' %>
+                              <li><a href="<%= m_a_d.link.url %>" target="<% if m_a_d.link.blank? %>_blank<% end %>"><%= m_a_d.link.title %></a></li>
+                          <% end %>
+                      <% end  %>
+                    </ul>
+                  </li>
+              <% else %>
+                  <% if m_a.node_type == 'PAGE' %>
+                      <li><a href="<%= page_path(m_a.page.slug) %>"  class="<% if m_a.page.friendly_id == params[:id] %>active<% end %>"><%= m_a.page.title %></a></li>
+                  <% elsif m_a.node_type == 'LINK' %>
+                      <li><a href="<%= m_a.link.url %>" target="<% if m_a.link.blank? %>_blank<% end %>"><%= m_a.link.title %></a></li>
+                  <% end %>
+              <% end %>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

@@ -1,0 +1,170 @@
+<% title @seo_title %>
+<% og_title @seo_title %>
+<div id="map" class="bigmap"></div>
+<script>tarteaucitron.user.mapscallback = 'initMap';</script>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 search">
+      <%= render 'properties/form' %>
+    </div>
+  </div>
+  <div class="result margin-t-60"></div>
+</div>
+<script>
+    $(function() {
+        var form = $('#main-search');
+
+        //handle pagination
+        $(document).on('click', '.pagination a', function(e) {
+            e.preventDefault();
+            form.attr('action', $(this).attr('href')).submit();
+        });
+
+        // handle submit form
+        var result = $('.result');
+        var loader = $('.loader');
+        form.on('submit', function(e){
+            e.preventDefault();
+            loader.addClass('active');
+            $.ajax({
+                url: form.attr('action'),
+                type: "POST",
+                data: form.serialize()
+            })
+                .done(function(data) {
+                    result.html(data);
+                    loader.removeClass('active');
+                })
+                .fail(function (jqXHR, textStatus) {
+                    console.log(textStatus);
+                });
+        });
+
+        //handle sousCaracteristiques
+        $(document).on('change', 'select', function() {
+            form.attr('action', '<%= properties_query_path(page:1) %>').submit();
+        });
+
+        form.submit();
+    });
+</script>
+<script>
+    function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 10,
+            center: {lat: 48.855386, lng: 2.346176},
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            scrollwheel: false
+        });
+        var geocoder = new google.maps.Geocoder;
+        var infowindow = new google.maps.InfoWindow;
+
+        var locations = [
+            <% @locations.each do |location| %>
+            ['<%= location[0] %>']<%= location != @locations.last ? ',' : '' %>
+            <% end %>
+        ];
+        var locationInfoArray = new Array();
+        <% @locations.each do |location| %>
+        locationInfoArray.push(
+            '<div class="content">'+
+            '<span class="firstHeading"><%= location[1] %></span>'+
+            '<p><a class="map-link" onClick="filterCity(\'<%= location[1] %>\')" rel="nofollow">Voir les offres</a></p>'+
+            '</div>'
+        );
+        <% end %>
+
+        var marker;
+        var markers = [];
+        var delay = 50;
+        var nextAddress = 0;
+        var image = '<%= asset_path('pin.png') %>'
+        var bounds = new google.maps.LatLngBounds();
+
+        function next(){
+            if(nextAddress < locations.length) {
+                setTimeout(function(){
+                    getAddress(locations[nextAddress]+' France', locationInfoArray[nextAddress], next);
+                    nextAddress++;
+                }, delay)
+            }
+            else {
+                map.fitBounds(bounds);
+                cluster();
+            }
+        }
+        next();
+
+        function cluster(){
+            var mcOptions = {
+                icon: '<%= asset_path('marker3.png') %>',
+                styles: [
+                    {
+                        url: '<%= asset_path('marker1.png') %>',
+                        width: 32,
+                        height: 32,
+                        textColor: '#FFF'
+                    },
+                    {
+                        url: '<%= asset_path('marker2.png') %>',
+                        width: 40,
+                        height: 40,
+                        textColor: '#FFF'
+                    },
+                    {
+                        url: '<%= asset_path('marker3.png') %>',
+                        width: 52,
+                        height: 52,
+                        textColor: '#FFF'
+                    }
+
+                ]
+            };
+            new MarkerClusterer(map, markers, mcOptions);
+        }
+
+        function getAddress(address, locationContent, next) {
+            geocoder.geocode( { 'address': address}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+
+                    marker = new google.maps.Marker({
+                        icon: image,
+                        map: map,
+                        position: results[0].geometry.location
+                    });
+                    markers.push(marker);
+                    bounds.extend(marker.position);
+
+                    google.maps.event.addListener(marker, 'click', (function(marker) {
+                        return function() {
+                            infowindow.setContent(locationContent);
+                            infowindow.open(map, marker);
+                        }
+                    })(marker));
+                }
+                else {
+                    if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+                        delay++;
+                    } else {
+                        console.log("addresse en erreur : "+address+" Erreur :" + status);
+                    }
+                }
+                next();
+            });
+        }
+
+        /**
+         * map link
+         */
+        $('.map-link').click(function(e){
+            e.preventDefault();
+            var city = $(this).data('city');
+
+        });
+    }
+//    initMap();
+
+    function filterCity(city){
+        $('#filter_cities option[value="'+city+'"]').prop('selected', true).change();
+    }
+</script>

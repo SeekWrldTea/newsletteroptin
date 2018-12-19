@@ -1,0 +1,44 @@
+Bonjour,<br />
+Un utilisateur vient de compléter un formulaire de contact.<br />
+<br />
+Nom / prénom : <%= @contact.name %><br />
+Email : <%= @contact.email %><br />
+Téléphone : <%= @contact.phone %><br />
+Message : <%= @contact.message %><br />
+<% if @contact.code_form == 'CONFIEZ-IMMEUBLE' %>
+  Nombre de lots principaux : <%= @contact.main_lots %><br />
+  Nombre de lots secondaires (cave, parking) : <%= @contact.second_lots %><br />
+  Type d'énergie : <%= @contact.energy %><br />
+  Ascenseur : <%= @contact.elevator %><br />
+  Du personnel travaille-t-il au sein de la copropriété ? : <%= @contact.people %><br />
+  Etes-vous membre du conseil syndical ? : <%= @contact.syndical %><br />
+  Date estimée de la prochaine AG : <%= @contact.assembly_date %><br />
+  Code postal : <%= @contact.postal_code %><br />
+  Ville : <%= @contact.city %><br />
+<% end %>
+<% if @contact.code_form == 'CONFIEZ-GESTION-BIEN' %>
+  Type de bien : <%= @contact.sort %><br />
+  Surface (m²) : <%= @contact.area %><br />
+  Nombre de pièces : <%= @contact.rooms %><br />
+  Code postal : <%= @contact.postal_code %><br />
+  Ville : <%= @contact.city %><br />
+<% end %>
+<% if @contact.code_form == 'CONFIEZ-VENTE-BIEN' %>
+  Type de bien : <%= @contact.sort %><br />
+  Surface (m²) : <%= @contact.area %><br />
+  Etat du bien : <%= @contact.state %><br />
+  Lot annexe :<br />
+  <% @contact.other_lots.each do |ol| %>
+    <%= '- '+ol %><br />
+  <% end %>
+  Nombre de pièces : <%= @contact.rooms %><br />
+  Code postal : <%= @contact.postal_code %><br />
+  Ville : <%= @contact.city %><br />
+<% end %>
+<% if @contact.property_id.present? %>
+  Intéressé par le bien suivant :  référence <%= @contact.property.reference %><br />
+  <%= @contact.property.type_property %> (<%= @contact.property.type_offer %>)<br />
+  <%= @contact.property.postal_code %> <%= @contact.property.city %>
+<% end %>
+<br />
+Cordialement

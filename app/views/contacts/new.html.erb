@@ -1,0 +1,36 @@
+<% title @h1 %>
+<% og_title @h1 %>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4 margin-t-40">
+      <%= simple_form_for @contact, url: contact_path, defaults: {wrapper: :inline_field12}, html: { class: 'form-horizontal' } do |f| %>
+          <%= f.error_notification %>
+          <%= render 'contacts/main', f: f %>
+          <label>Message complémentaire *:</label>
+          <div class="form-group">
+            <%= f.input :message, input_html: { rows: 8 }, as: :text, error: 'Le message est obligatoire' %>
+          </div>
+          <div class="checkbox">
+            <div class="input_checkbox">
+              <%= f.input_field :email, as: :boolean, boolean_style: :inline, error: 'Le message est obligatoire' %>
+            </div>
+            <div class="text_checkbox">
+              <small>En soumettant ce formulaire, j'accepte que les informations saisies soient exploitées pour permettre de me recontacter et pour assurer la relation commerciale qui découlerait de ce contact. </small>
+            </div>
+         </div>
+          <%= f.input :code_form, :as => :hidden, input_html: { value: 'GENERAL' } %>
+          </br> <small>Veuillez consulter notre <a href="https://www.immobilieredesvictoires.fr/cookie"> politique de confidentialité </a> relative à la protection de vos données personnelles récoltées par l’intermédiaire de ce site internet.</small>
+          </br></br><small>*Champs obligatoires</small>
+          <div class="recaptcha_block">
+            <%= recaptcha_tags %>
+            <span class="help-block pull-left" style="color: #a94442;"><%= @captcha_error %></span>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-12">
+              <%= f.button :submit, 'Envoyer', class: 'btn-block btn-red' %>
+            </div>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</div>

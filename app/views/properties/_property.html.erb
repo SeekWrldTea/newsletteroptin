@@ -1,0 +1,21 @@
+<div class="thumbnail property">
+  <a href="<%= property_path(properties: (property.type_offer == 'Vente' ? 'biens-a-vendre' : 'biens-a-louer'), id:  property.slug) %>">
+    <div class="img-container">
+      <div class="overlay">
+        <div class="btn btn-red">En savoir plus</div>
+      </div>
+      <%= image_tag((property.main_image.nil? ? asset_path('logo-og_'+current_domain+'.jpg') : property.main_image.image.image_thumb), class: 'img-responsive', alt: property.title) %>
+    </div>
+    <div class="caption">
+      <div class="title"><%= property.title %></div>
+      <div class="content">
+        <%= property.excerpt %>
+      </div>
+      <div class="details">
+        <span><%= property.type_property %></span>
+        <span><%= property.city %></span>
+        <span><%= ActionController::Base.helpers.number_with_precision(property.price, locale: :fr, precision: 0, delimiter: ' ')%>€</span>
+      </div>
+    </div>
+  </a>
+</div>

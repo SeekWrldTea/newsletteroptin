@@ -1,0 +1,65 @@
+<% title @h1 %>
+<% og_title @h1 %>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 margin-t-40">
+      <p><strong>SEGINE </strong>vous propose un mandat de gestion à tarif préférentiel<br>et des garanties modulables pour sécuriser vos revenus locatifs (garanties de loyers impayés...).</p>
+      <p><strong>Contactez-nous</strong> dès maintenant pour une étude personnalisée de votre projet.<p>
+    </div>
+    <hr class="border" />
+    <div class="col-sm-12">
+      <%= simple_form_for @contact, url: confiez_nous_la_gestion_de_votre_bien_path, defaults: {wrapper: :inline_field12}, html: { class: 'form-horizontal' } do |f| %>
+          <div class="row">
+            <%= f.error_notification %>
+            <div class="col-sm-6">
+              <h2>Caractéristiques du bien à louer</h2>
+              <label>Type de bien *:</label>
+              <div class="form-group">
+                <%= f.input :sort, collection: ['Appartement', 'Maison', 'Commerces et bureaux', 'Terrains', 'Garage / Parking', 'Immeuble Parking'], prompt: 'Sélectionner une option' %>
+              </div>
+              <label>Surface (m²) *:</label>
+              <div class="form-group">
+                <%= f.input :area, input_html: { maxlength: 50 }, error: 'La surface est obligatoire' %>
+              </div>
+              <label>Nombre de pièces *:</label>
+              <div class="form-group">
+                <%= f.input :rooms, input_html: { maxlength: 50 }, error: 'Le nombre de pièces est obligatoire' %>
+              </div>
+              <h2>Localisation de votre bien</h2>
+              <label>Code postal *:</label>
+              <div class="form-group">
+                <%= f.input :postal_code, input_html: { maxlength: 10 }, error: 'Le code postal est obligatoire' %>
+              </div>
+              <label>Ville *:</label>
+              <div class="form-group">
+                <%= f.input :city, input_html: { maxlength: 50 }, error: 'La ville est obligatoire' %>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <h2>Vos coordonnées</h2>
+              <%= render 'contacts/main', f: f %>
+            </div>
+            <div class="col-sm-12">
+              <label>Message complémentaire *:</label>
+              <div class="form-group">
+                <%= f.input :message, input_html: { rows: 8 }, as: :text, error: 'Le message est obligatoire' %>
+              </div>
+              <%= f.input :code_form, :as => :hidden, input_html: { value: 'CONFIEZ-GESTION-BIEN' } %>
+            </div>
+            <div class="col-sm-4">
+              <small>*Champs obligatoires</small>
+              <div class="recaptcha_block">
+                <%= recaptcha_tags %>
+                <span class="help-block pull-left" style="color: #a94442;"><%= @captcha_error %></span>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-12">
+                  <%= f.button :submit, 'Envoyer', class: 'btn-block btn-red' %>
+                </div>
+              </div>
+            </div>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</div>

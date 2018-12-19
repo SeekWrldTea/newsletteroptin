@@ -1,0 +1,20 @@
+<div class="margin-t-40">
+  <h2>Catégories</h2>
+  <div class="widget categories">
+    <ul>
+      <% @categories.each do |c| %>
+          <li><%= link_to raw(c.title+' <i class="fa fa-folder-open"></i>' ), articles_path(categorie: c.slug) %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+<div class="margin-t-20">
+  <% if @widget %>
+      <h2><%= @widget.title %></h2>
+      <a href="<%= @widget.url %>" class="widget odd">
+        <span><%= @widget.subtitle %></span>
+        <i class="fa <%= @widget.icon %>"></i>
+        <p><%= @widget.url_text %></p>
+      </a>
+  <% end %>
+</div>

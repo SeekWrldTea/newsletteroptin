@@ -1,0 +1,71 @@
+<% title @h1 %>
+<% og_title @h1 %>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <%= simple_form_for @contact, url: deposer_ma_candidature_path, defaults: {wrapper: :inline_field12}, html: { class: 'form-horizontal' } do |f| %>
+          <div class="row">
+            <%= f.error_notification %>
+            <div class="col-sm-6">
+              <h2>Intitulé de l’offre</h2>
+              <label>Univers Métier recherché *:</label>
+              <div class="form-group">
+                <%= f.input :sort, collection: ['Copropriété', 'Gestion Locative', 'Transaction', 'Location', 'Fonctions Supports'], prompt: 'Sélectionner une option' %>
+              </div>
+              <label>Précisez le métier recherché *:</label>
+              <div class="form-group">
+                <%= f.input :job, input_html: { maxlength: 50 }, error: 'Le métier est obligatoire' %>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <h2>Vos coordonnées</h2>
+              <%= render 'contacts/main', f: f %>
+              <label>Adresse *:</label>
+              <div class="form-group">
+                <%= f.input :address, input_html: { maxlength: 200 }, error: 'L\'adresse est obligatoire' %>
+              </div>
+              <label>Code postal *:</label>
+              <div class="form-group">
+                <%= f.input :postal_code, input_html: { maxlength: 10 }, error: 'Le code postal est obligatoire' %>
+              </div>
+              <label>Ville *:</label>
+              <div class="form-group">
+                <%= f.input :city, input_html: { maxlength: 50 }, error: 'La ville est obligatoire' %>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <label>Motivations *:</label>
+              <div class="form-group">
+                <%= f.input :message, input_html: { rows: 8 }, as: :text, error: 'Le champ motivations est obligatoire' %>
+              </div>
+              <label>Recommendations *:</label>
+              <div class="form-group">
+                <%= f.input :recommendation, input_html: { rows: 8 }, as: :text, error: 'Le champ recommendations est obligatoire' %>
+              </div>
+              <label>CV *:</label>
+              <div class="form-group">
+                <%= f.input :cv, error: 'Le cv est obligatoire' %>
+              </div>
+              <label>Lettre de motivation *:</label>
+              <div class="form-group">
+                <%= f.input :cover_letter, error: 'La lettre de motivation est obligatoire' %>
+              </div>
+              <%= f.input :code_form, :as => :hidden, input_html: { value: 'RECRUTEMENT' } %>
+            </div>
+            <div class="col-sm-4">
+              <small>*Champs obligatoires</small>
+              <div class="recaptcha_block">
+                <%= recaptcha_tags %>
+                <span class="help-block pull-left" style="color: #a94442;"><%= @captcha_error %></span>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-12">
+                  <%= f.button :submit, 'Envoyer', class: 'btn-block btn-red' %>
+                </div>
+              </div>
+            </div>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</div>

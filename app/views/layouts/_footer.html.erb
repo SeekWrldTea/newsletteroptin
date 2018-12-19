@@ -1,0 +1,66 @@
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8">
+        <ul class="menu">
+        <% @menu_associations.each do |m_a| %>
+          <li>
+            <% if m_a.node_type == 'PAGE' %>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= m_a.page.title %></a>
+            <% elsif m_a.node_type == 'LINK' %>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= m_a.link.title %></a>
+            <% end %>
+          </li>
+        <% end %>
+        </ul>
+        <div class="row">
+          <% @agencies.each do |a| %>
+            <div class="col-sm-4">
+              <%= a.title %><br />
+              <%= raw a.body %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="title">
+          Restons connectés
+        </div>
+        <ul>
+          <% if @viadeo.present? %>
+            <li>
+            <%= link_to raw('<i class="fa fa-viadeo"></i>'), @viadeo.value, class: 'social', target: '_blank' %>
+            </li>
+          <% end %>
+          <% if @googleplus.present? %>
+              <li>
+              <%= link_to raw('<i class="fa fa-google-plus"></i>'), @googleplus.value, class: 'social', target: '_blank' %>
+              </li>
+          <% end %>
+          <% if @facebook.present? %>
+              <li>
+              <%= link_to raw('<i class="fa fa-facebook"></i>'), @facebook.value, class: 'social', target: '_blank' %>
+              </li>
+          <% end %>
+          <li>
+            <%= link_to 'Contactez-nous', contact_path %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="copyright">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8">
+          Tous droits réservés - <%= Time.now.year %> - <%= link_to 'Mentions légales', page_path('mentions-legales') %>
+        </div>
+        <div class="col-sm-4">
+          <div class="text-right">
+            <%= link_to 'Une création begital.com', 'http://www.begital.com', target: '_blank' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

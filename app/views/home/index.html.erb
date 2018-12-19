@@ -1,0 +1,150 @@
+<div class="mainCarousel <% if @sliders.length > 1 %>active<% end %>">
+  <% @sliders.each do |s| %>
+    <%= image_tag s.image.slider_thumb, class: 'img-responsive' %>
+  <% end %>
+</div>
+<div class="main-links">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 col-xs-6 text-center">
+        <a href="" class="syndicat">
+          SYNDICAT DE COPROPRIETE
+        </a>
+      </div>
+      <div class="col-md-3 col-xs-6 text-center">
+        <a href="" class="location">
+          GESTION LOCATIVE
+        </a>
+      </div>
+      <div class="col-md-3 col-xs-6 text-center">
+        <%= link_to 'NOS BIENS À VENDRE', properties_path(properties:'biens-a-vendre'), class: 'vendre' %>
+      </div>
+      <div class="col-md-3 col-xs-6 text-center">
+        <%= link_to 'NOS BIENS À LOUER', properties_path(properties:'biens-a-louer'), class: 'louer' %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container home">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>Spécialiste de la gestion de la copropriété,<br /> de la gestion-locative &amp; de la transaction</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <h2>
+        <%= image_tag 'home1.png', alt:'Syndic de copropriété' %>
+        Écoute & accompagnement
+      </h2>
+      <div class="text">
+        Depuis 50 ans, nous bâtissons notre réputation sur <strong>la rigueur, le professionnalisme et la transparence.</strong><br>
+        Nous avons la volonté de vous accompagner et de vous écouter en vue de vous offrir le meilleur.
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <h2>
+        <%= image_tag 'home2.png', alt:'Gestion Locative' %>
+        Conseils &amp; expertises
+      </h2>
+      <div class="text">
+        Une expertise dans chaque métier grâce à la synergie des compétences.<br>
+        Une maîtrise des aspects juridiques, réglementaires, techniques et comptables grâce à une formation continue.
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <h2>
+        <%= image_tag 'home3.png', alt:'Transaction' %>
+        Savoir-faire
+      </h2>
+      <div class="text">
+        Un contrôle interne doté d'une informatique leader dans les métiers de l'administration de biens veille à la qualité de la gestion et la sécurité des fonds de nos mandants.
+      </div>
+    </div>
+  </div>
+</div>
+<div class="white-block">
+  <div class="container">
+    <div class="row">
+      <div class="<%= current_domain == 'SEGINE' ? 'col-sm-6' :  'col-sm-4' %>">
+        <a href="/garantie" class="thumbnail">
+          <%= image_tag 'img-home-histoire.jpg', alt:'histoire' %>
+          <div class="title">GARANTIES</div>
+        </a>
+      </div>
+      <div class="<%= current_domain == 'SEGINE' ? 'col-sm-6' :  'col-sm-4' %>">
+        <a href="<%= articles_path %>" class="thumbnail">
+          <%= image_tag 'img-home-actualites.jpg', alt:'actualités' %>
+          <div class="title">ACTUALITES</div>
+        </a>
+      </div>
+      <% if current_domain != 'SEGINE' %>
+          <div class="col-sm-4">
+            <a href="" class="thumbnail">
+              <%= image_tag 'img-home-garanties.jpg', alt:'garanties' %>
+              <div class="title">GARANTIES</div>
+            </a>
+          </div>
+      <% end %>
+    </div>
+    <div class="row margin-t-40">
+      <div class="col-sm-6">
+        <div class="title">
+          Restons en contact 
+        </div>
+        <div class="newsletter-subscription">
+          <div class="title">
+            Recevez notre newsletter
+          </div>
+          <%= simple_form_for @newsletter, url: newsletter_subscription_path, :html => { :class => 'form-inline' } do |f| %>
+              <div class="input-group">
+                <%= f.input :email, required: true, label: false, placeholder: 'Renseignez votre adresse email' %>
+              </div>
+              <div class="input-group">
+                <%= f.button :submit, 'S\'abonner', class: 'btn btn-transparent' %>
+              </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="title">
+          Nous situez
+        </div>
+        <div class="gmap" id="home-map"></div>
+        <script>tarteaucitron.user.mapscallback = 'initMap';</script>
+      </div>
+    </div>
+  </div>
+</div>
+<% if @agencies.length > 0 %>
+
+<script>
+    function initMap() {
+        var map = new google.maps.Map(document.getElementById('home-map'), {
+            zoom: 10,
+            scrollwheel: false,
+            center: {lat: <%= @agencies[0].latitude %>, lng: <%= @agencies[0].longitude %>}
+        });
+
+        setMarkers(map);
+    }
+    var agencies = [
+        <% @agencies.each_with_index do |a, i| %>
+          ['<%= a.title %>', <%= a.latitude %>, <%= a.longitude %>, <%= i %>]
+        <% end %>
+    ];
+
+    function setMarkers(map) {
+        for (var i = 0; i < agencies.length; i++) {
+            var agency = agencies[i];
+            var marker = new google.maps.Marker({
+                position: {lat: agency[1], lng: agency[2]},
+                map: map,
+                title: agency[0],
+                zIndex: agency[3]
+            });
+        }
+    }
+//    initMap();
+</script>
+<% end %>
