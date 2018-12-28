@@ -67,7 +67,7 @@
               </div>
               <%= f.input :code_form, :as => :hidden, input_html: { value: 'GENERAL' } %>
               </br> <small>Veuillez consulter notre 
-              <% if request.domain.include?('segine') %> 
+              <% if current_domain == 'SEGINE' %> 
                 <a href="https://www.segine.fr/cookie-1"> politique de confidentialité </a> 
               <% else %>
                 <a href="https://www.immobilieredesvictoires.fr/cookie"> politique de confidentialité </a> 
