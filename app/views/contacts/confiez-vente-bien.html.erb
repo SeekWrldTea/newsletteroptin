@@ -57,6 +57,22 @@
                 <%= f.input :message, input_html: { rows: 8 }, as: :text, error: 'Le message est obligatoire' %>
               </div>
               <%= f.input :code_form, :as => :hidden, input_html: { value: 'CONFIEZ-VENTE-BIEN' } %>
+              <div class="checkbox">
+                <div class="input_checkbox">
+                  <%= f.input_field :email, as: :boolean, boolean_style: :inline, error: 'Le message est obligatoire' %>
+                </div>
+                <div class="text_checkbox">
+                  <small>En soumettant ce formulaire, j'accepte que les informations saisies soient exploitées pour permettre de me recontacter et pour assurer la relation commerciale qui découlerait de ce contact. </small>
+                </div>
+              </div>
+              <%= f.input :code_form, :as => :hidden, input_html: { value: 'GENERAL' } %>
+              </br> <small>Veuillez consulter notre 
+              <% if request.domain.include?('segine') %> 
+                <a href="https://www.segine.fr/cookie-1"> politique de confidentialité </a> 
+              <% else %>
+                <a href="https://www.immobilieredesvictoires.fr/cookie"> politique de confidentialité </a> 
+              <%end%>
+              relative à la protection de vos données personnelles récoltées par l’intermédiaire de ce site internet.</small>
             </div>
             <div class="col-sm-4">
               <small>*Champs obligatoires</small>
